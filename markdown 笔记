@@ -1,0 +1,121 @@
+@_@ 好，开始
+[top]: # "Top of the post."
+##**标题的练习**
+###**概括**
+markdown 的标题支持的语法规则有两种体系的，分别为：类Setext和类atx形式
+
++ Setext :这货只支持两级标题，" ===== "为一阶标题，"--------"为二阶标题。个数任意，只要>=1;
++ atx:这是个人先在推荐的，平常见到比较多的使用1到6个**#**来不同的标题阶数,数字越多，字体越小。
+ 
+ 
+##**区块引用**
+啥是 那个那个 区块引用？
+来看一段话：
+>Markdown使用email形式的區塊引言，如果你很熟悉如何在email信件中引言，你就知道怎麼在Markdown文件中建立一個區塊引言，那會看起來像是你強迫斷行，然後在每行的最前面加上>
+
+这是markdown 繁体文档上的一段话，看看就懂了。
+>一个比较好玩的地方，这种语法规则支持嵌套使用
+>>使用比上一级多一个>就会自动表现出嵌套的形式
+
+好，下一个
+###**列表**
+（好吧，让我想起了我做简历当时不会用分隔符的糗样，说来一把泪）
+好，那我们在区块引用中使用列表的形式来罗列要点：
+
+* 列表符的表现形式有两类，一类是"+,-or* ",另一类是是数字+'.'来表现
+例如：
+```
++ aaaaa
++ bbbbbb
++ ccccccc
++ dddddd
+```
+
+ 表现为：
+
++ aaaaa
++ bbbbbb
++ ccccccc
++ dddddd
+
+ps:如果要进行转义 用 ' \ '达到目的
+
+##插入代码之类 要保持格式不被搞乱，咋办呢？
+代码前后加入三个tab上方那个三个点（csdn是这样的）
+
+```
+#include <stdio.h>
+int main()
+{
+   printf("my first markdown text,i will write more in the few days about it.it's interesting~");
+}
+```
+
+
+##**插入链接**
+* markdown 支持两种链接语法，分别为:行内式，参考式。但他们都用[ ]来标记。
+* 行内式：
+>在方括号后面使用圆括号，并在圆括号中写上链接地址和标题即可(可选)，title字段需要使用双引号包起
+
+            
+  例如：
+```
+ This is a link to my [github](https://www.github.com/luoyuping"，my github")
+```
+展示为
+ This is a link to my [github](https://www.github.com/luoyuping"，my github")
+
+* 链接不仅可以使用http链接，还可以使用[**相对链接地址**](http://baike.baidu.com/link?url=_4DkfCslizLFld6eOge9VRLc0Q3rk8Tny5n4fNf2Q6StRPVIMzLUHFgy_zn5EoUiZmNfmBNt5ippxl2AU_mZVq,"定义")
+(careful:千万不要手误打成中文括号，不然不会出来滴~)
+
+* 参考式：
+>指的是在第一个方括号后面要继续使用一个方括号，在后者中要输入链接的目标。括号之间要空一个空格
+
+```
+**点这到**[**页顶**] [top]
+```
+
+**点这到**[**页顶**] [top]
+
+[glgoo]:https://www.baidu.com
+
+##**OTHERS**
+
+如果使用尖括号将网址,直接跳转到相应网址或邮箱
+Any question,contract me:<luohan1124@gmail.com>
+这篇blog的markdown文本格式的源码在:<https://www.github.com/luoyuping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

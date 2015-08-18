@@ -1,0 +1,29 @@
+![](http://i3.tietuku.com/8704cbb296ca67a6.png) 
+##bash  or zsh shortcuts
+>原来我不太喜欢终端环境，其中一个比较大的原因是：辛苦敲了一大串字，发现有错，老老实实的将手指挪动到方向键，左左右右，左右，右左-_-
+google 找了，发现大量的 shortcuts ，又可以开心的在终端下，开心的玩耍了
+罗列如下:
+
+
+|option|action|PS|
+|:---------|:--------:|----:|
+|CTRL-c|Stop current command|
+|CTRL-z|Sleep program|
+|CTRL-a|Go to start of line|
+|CTRL-e|Go to end of line|
+|CTRL-u|Cut from start of line|
+|CTRL-w|delete a word in front the Cursor|	
+|CTRL-k|Cut to end of line|
+|CTRL-r|Search history|
+|CTRL + l|Clear screen|
+|CTRL + s|	Stop output to screen|
+CTRL + q|	Re-enable screen output|
+|!!|Repeat last command|
+|!abc|Run last command starting with abc|
+|!abc:p|Print last command starting with abc|
+|!$|Last argument of previous command|
+|ALT-.|Last argument of previous command|
+|!*|All arguments of previous command|
+|^abc ^123|Run previous command, replacing abc with 123|
+
+

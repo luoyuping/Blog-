@@ -1,0 +1,48 @@
+
+####问题描述
+
+我在一个先前未被创建.gitignore 的文件夹中，通过命令 touch .gitignore文件，问题来了：尽管制定了若干规则，但是在用git status 查看工作区的状况时，规则之外的文件还是无法忽略。
+
+####问题解决的方法
+只要用git rm -r - -cached .  删除文件记录 
+后用 git add . 将工作区的修改提交至暂存区
+再用 git commit -m "...."  将暂存区的修改提交至本地库
+
+####原因
+先来看看一个略官方的gitginore 文档的说明
+>Two things to keep in mind with ignoring files: First, if a file is already being tracked by Git, adding the file to .gitignore won’t stop Git from tracking it. You’ll need to do git rm --cached < file > to keep the file in your tree and then ignore it. Secondly, empty directories do not get tracked by Git. If you want them to be tracked, they need to have something in them. Usually doing a touch .gitignore is enough to keep the folder tracked.
+
+[原文链接在此](http://gitready.com/beginner/2009/01/19/ignoring-files.html,"点我")
+文档说用git rm --cached file 可以做到
+
+####**.gitignore 文件的书写方法**
+* 作用是过滤掉文件
+* 范围由大到小
+*  ! + file 要这个文件，重新讲文件加入到git 仓库
+* ?匹配单个字符, \* 匹配若干个字符
++ ** 连续星号
+	- 　**/file :匹配任意目录（git 仓库下）下的名为file 的文件
+	-   Dir/** : 匹配 Dir 下的所有文件
+	-  A/**/B Ａ到Ｂ间的所有文件
+	- 其他** 格式无效
++ 特殊的符号，借助转义 ' \ ',来表示
+
+
+
+###**一起复习下git的使用~**
+![顺便插入张git操作总结图](http://img.blog.csdn.net/20150317155500293)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

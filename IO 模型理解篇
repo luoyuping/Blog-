@@ -1,0 +1,70 @@
+###阻塞非阻塞 I/O
+概念上没啥，比较容易区分
+在linux下，非阻塞配合epoll（select , poll 等IO复用机制），逻辑清晰，效果显著
+
+
+
+###同步IO  异步I/O
+同步I/O：用户自己执行I/O操作
+
+异步I/O：内核执行I/O操作，讲执行结果返回给用户
+
++ 对套接字等IO上的IO事件，使用epoll + 非阻塞 效果显著
++ 但是，对于普通文件，  **O_NOBLOCK 方式对于传统文件句柄是无效的**，多线程操作同一个文件时，阻塞下的操作，效率可想而知
+这时，**所以,多线程操作同一文件，非阻塞操作，就值得一试**
++ Linux的异步IO还不是非常成熟
+	- Glibc AIO: http://www.ibm.com/developerworks/linux/library/l-async/
+	- Kernel Native AIO: http://lse.sourceforge.net/io/aio.html
+	- libev的作者Marc Alexander Lehmann老大重新实现的一个AIO library： http://software.schmorp.de/pkg/libeio.html
+
+### 并发模式中的同步，异步
+强调一点：
+** 
+在并发，模型中的同步和异步，同步指的是：程序时完全按照代码序列执行
+而异步指定是：程序的执行需要由系统的事件来触发，一般中断
+**
+和IO模型中的两个词，意思还是完全不同【[出自与：Linux高性能服务器编程](http://book.douban.com/subject/24722611/) 】
+ps:貌似这样解释挺好理解
+
+
+
+
+
+###I/O事件处理模型
+
+
++ Reactor
+ 	建立在同步IO的模型上
+	假如以epoll复用为例
+	- 主线程做eventloop ，epoll_wait() 检测到socket的可读或者可写的事件时，将socket的描述符和可读的状态或者可写的状态放入事件队列
+	- 工作线程去事件队列中取出事件，处理读写事件
++ Proactor
+	建立在异步IO的模型上
+	自己目前没有使用过，mark，以后补上
+
+	
++ 模拟Proactor
+	 主线程执行数据的读写的工作，读写完后，主线程向工作线程通知这一“完成事件”。工作线程只需要完成数据的逻辑处理，或者个数据库打交道，无需和socket通讯
+	
+	假如以epoll复用为例：
+
+	- 主线程用epoll做eventloop 监听事件
+	- 当socket有可读事件时，主线程循环读取数据，讲数据封装成一个对象，插入任务队列
+	- 工作线程，将数据处理完后，把返回的数据交给主线程，并想epollfd注册该socket的可写事件
+	- 下次epollfd 对可写的事件做出响应
+
+ 
+
+###并发模型
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------
+参考书籍：[Linux高性能服务器编程](http://book.douban.com/subject/24722611/) 
+
+ 

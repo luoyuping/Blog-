@@ -1,0 +1,15 @@
+### 项目介绍
++ 大三下学期，班级培养计划的学分项目，关于嵌入式开发的一次尝试
++ 团队开发，开发环境：MDK5，Eclipse + Android ADT
++ 开发板是 stm32 下的 alientek 开发板，我负责的是ADC数模转换，蓝牙串口通讯，总控程序的设计编码
+ 
++ 远程控制端是在android平台下基于蓝牙团队自己开发的APK
++ 项目的意义主要，对我而言主要是尝试，（原来自己没玩过嵌入式，刚好大三下开了类似的课）所以最后自己的产品的误差较大（血压测量值偏离市场上的产品较大，气泵控制的时间不精确，充放气的模式单一），玩具，千万别太认真，如果你想参考的话 
+
+![](http://i3.tietuku.com/a9a2de9cf34192ef.png) 
+
+![](http://i3.tietuku.com/366d8dc95d899d27.png) ![](http://i3.tietuku.com/a1cb9be5c8e5050d.png) ![](http://i3.tietuku.com/b052e0f05209318a.png) 
+![](http://i3.tietuku.com/a7ba03319ba72fab.png) ![](http://i3.tietuku.com/6bcb77319a00fa40.png) 
+
+
+[硬件端的源码保 （mdk 5  ）](http://yun.baidu.com/share/link?shareid=2695262227&uk=3643527579&third=0) 

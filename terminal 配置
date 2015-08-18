@@ -1,0 +1,60 @@
+terminal 折腾
+----------
+**make your  gnome-terminal support 256 colors**
+```
+if [[ ($COLORTERM == gnome-terminal || $(cat /proc/$PPID/cmdline) == *gnome-terminal* )
+    && $TERM != screen* ]]; then
+    export TERM=xterm-256color
+fi
+```
+关键是
+```
+ export TERM=xterm-256color
+```
+如此配置仅在 GNOME Terminal 、且不在 screen/tmux 会话中时设置为 xterm-256color 。
+
+-----------
+** bash ? ～～ no!    oh-my-zsh**
+zsh 完全兼容 bash，首先把你的 bashrc 直接拷贝进zshrc
+啥？你还是玩bash？那好吧，来，看个小视频[(点这，你得翻墙)](https://www.youtube.com/watch?v=iINdaimyVds) 
+等等，zsh又得配置半天入门，好吧，来份oh-my-zsh[点这](http://ohmyz.sh/) 
+#####必要的插件安装：
++ git
++ autojump (记录最近使用过的目录，跳转极为方便，使用方法自行google)
+
+#####zsh 主题：
+我用的是 robbyrussell,  agnoster 看起来比较牛逼（我目前没有成功安装，装了字体拓展还是不行，见鬼）
+
+------------
+**终端配色丑？-_-**
+我用的是 gnome-terminal ，我就讲我的配置的步骤
+
++ 首先，终端的配色用的是这个哥们的（@_@)  [https://github.com/Anthony25/gnome-terminal-colors-solarized.git](https://github.com/Anthony25/gnome-terminal-colors-solarized.git) 
+具体的安装方法，作者讲的非常清楚
+**但是需要注意的**
+	- 最好新建一份profile,在新的profile 里面进行配色的安装（menu ->edit->profiles->new）
+	-  我安装好了后，出现了一个诡异的问题，配色的效果达不到作者的截图，这就比较恼人了，想回退到用自己原来的配色方案，发现menu 栏不见了，想从命令行把他调出，google无果，其实鼠标右键就能调出meun ;接着解决问题，配色达不到理想，其实问题的原因是，原来的配色的配置（具体是透明度）发生了干扰，调整之后就好了，汗（差点放弃）
+	- 效果是这样的
+![](http://i3.tietuku.com/41139c18a4c467ba.png) 
+还行，但不满意他的透明度，调整gnome-terminal 的透明度无效，原因应该是具体的配色源文件颜色数值的问题，以后折腾
++ 隐藏user@hostname,方法是在```.zshrc``` 中加入如下的一句
+```
+export DEFAULT_USER=`whoami`
+
+```
+恩，应该好了
+-----------------------
+** 玩点高端的？tmux **（我自己还在学）
+文档先来
+中文的翻译好的：[tmux-productive-mouse-free-development_zh](https://github.com/aqua7regia/tmux-Productive-Mouse-Free-Development_zh) 
+
+
+
+
+-------
+参考：
+
++ [https://blog.robotshell.org/2014/enable-256-color-in-gnome-terminal/](https://blog.robotshell.org/2014/enable-256-color-in-gnome-terminal/) 
+
+----------
+PS : 后续随时补充完善continue。。。

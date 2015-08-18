@@ -1,0 +1,106 @@
+# I/O  复用  --  熟悉 API篇
+##横向比较
+
+||函数原型||
+|:-------|--------|
+|select|** int select(int nfds,fd_set\* readfds,fd_set\* writefds,fd_set\* exceptfds,struct timeval\* timeout )**|
+|poll|** int poll(struct pollfd\* fds,nfds_t nfds,int timeout) **|
+|epoll|** int epoll(int epollfd,struct epoll_event\* events,int maxevent,int timeout) **|
+
+## select
+### 参数
+**nfds**: 指定被监听的文件符总数，通常传入被监听的文件符集合中的最大值 + 1
+**fd_set**: 该类型的定义，就不在这里贴上来，大体是，用长整形数组的每个元素的每一位来标识一个事件;
+位操作过于繁琐，可用下列一系列的宏来操作fd_set 类型的结构体
+> FD_ZERO(fd_set * select_fdset)   // 清除所有被标志的文件描述符
+FD_SET(int fd,select_fdset)       // 将这个文件描述符，添加到sekect 的监听范围内
+FD_CLR(int fd,select_fdset)      // 删除 这个文件描述符，不要被select 监听
+FD_ISSET(int fd,select_fdset)  //测试这个文件描述符是否被添加到 select fd_set中
+
+
+## poll
+### struct pollfd
+`
+struct pollfd
+{
+	int fd;
+	short events;
+	short revents;
+};
+`
+
+###  参数解释
+**pollfd**： 是一个数组的地址，数组的每个元素，将一个文件描述符，和该文件描述符上调用者想要监听的事件与实际上发生了的事件，绑定在一块，和select 一样，每个事件用一个位来标识（**联想hashset  的原理**）
+
+** nfds_t **: 数组长度
+** timeout **:
+
+## epoll
+** epollfd **: 是内核和用户联系的桥梁，epoll 操作 的标识
+epollfd = epoll_create(int size)  //  size 是用户建议性给内核提示开多打的事件事件表
+
+** struct epoll_events **
+ struct epoll_event
+{ 
+	_uint32_t   events;
+	epoll_data_t data;
+}
+
+typedef union epoll_data
+{	
+	void* ptr ;  //  指定fd 相关的用户数据
+ 	 int fd;         // 给联合体中使用最多的成员，指定事件的主人
+	uint32_t	u32;
+	uint64_t	u64;
+} epoll_data_t;
+ // 关于 ptr 的使用，我还没用过，后面补充吧 -_- ..
+**MAXEVENT  :**   数组的长度,类型 struct  epoll_event
+
+
+## 事件  event
+*以epoll 支持的事件为例*
+ 
+常用：
+EPOLLIN
+EPOLLOUT
+EPOLLRDHUP
+EPOLLERR
+EPOLLET
+EPOLLONESHOT
+
+## 三种I/O复用 宏观上的比较
+
+select
+>  将事件和文件描述符没有结合起来，第一个参数代表文件描述符，后面三个参数代表它支持的三种事件:可读/可写/异常（接收带外数据），每次调用前，都得重置三个fd_set 集合
+
+poll
+>  将文件描述符和事件绑定在一块，作为数组传入，并且，它将要检测的事件，和实际内核修改的事件，分离开，相对select(),设计好多了。
+用户通过pollfd.event 传入感兴趣的事件，内核通过修改 pollfd.revent 反馈 pollfd.fd 上发生的事件
+
+
+epoll
+> 跟上面两种方式完全不同，没有传入事件的过程。它在内核维护一个事件表，提供独立的系统调用epoll_ctl( )
+来操作该事件表，这样，用户调用epoll_wait( ...,event,...)来取得返回就绪的事件，复杂度达到n(1).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
